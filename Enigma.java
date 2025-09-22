@@ -20,13 +20,35 @@ public class Enigma{
 
 
     public String decrypt(String message){        
-        //TODO
+        StringBuilder result = new StringBuilder();
+        
+        for (int i = 0; i < message.length(); i++) {
+            char c = message.charAt(i);
+            
+            // Reverse process: find character on outer rotor
+            int outerIndex = rotors[2].indexOf(c);
+            
+            // Get aligned character on middle rotor (same index)
+            char middleChar = rotors[1].charAt(outerIndex);
+            
+            // Find that character on outer rotor again
+            int secondOuterIndex = rotors[2].indexOf(middleChar);
+            
+            // Output character aligned with it on inner rotor
+            char decryptedChar = rotors[0].charAt(secondOuterIndex);
+            result.append(decryptedChar);
+            
+            // Rotate rotors after decryption
+            rotate();
+        }
+        
+        return result.toString();
     }
 
 
     
     public String encrypt(String message){
-        //TODO
+        return "";
     }
 
     
