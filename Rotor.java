@@ -13,17 +13,16 @@ public class Rotor {
     }
     
     public boolean rotate(){
-        //TODO
-               
+        return false;
     }
     
 
     public int indexOf(char c){
-        //TODO
+        return rotorValues.indexOf(c);
     }
 
     public char charAt(int idx){
-        //TODO
+        return rotorValues.charAt(idx);
     }
 }
     
