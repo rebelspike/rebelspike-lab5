@@ -13,7 +13,12 @@ public class Rotor {
     }
     
     public boolean rotate(){
-        return false;
+        // Rotate clockwise: move last character to front
+        char lastChar = rotorValues.charAt(rotorValues.length() - 1);
+        rotorValues = lastChar + rotorValues.substring(0, rotorValues.length() - 1);
+        
+        // Return true if we've completed a full rotation (back to start char at top)
+        return rotorValues.charAt(0) == startChar;
     }
     
 
