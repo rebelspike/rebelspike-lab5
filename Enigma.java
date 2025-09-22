@@ -48,7 +48,29 @@ public class Enigma{
 
     
     public String encrypt(String message){
-        return "";
+        StringBuilder result = new StringBuilder();
+        
+        for (int i = 0; i < message.length(); i++) {
+            char c = message.charAt(i);
+            
+            // Find character on inner rotor
+            int innerIndex = rotors[0].indexOf(c);
+            
+            // Get aligned character on outer rotor (same index)
+            char outerChar = rotors[2].charAt(innerIndex);
+            
+            // Find that character on middle rotor
+            int middleIndex = rotors[1].indexOf(outerChar);
+            
+            // Output character aligned with it on outer rotor
+            char encryptedChar = rotors[2].charAt(middleIndex);
+            result.append(encryptedChar);
+            
+            // Rotate rotors after encryption
+            rotate();
+        }
+        
+        return result.toString();
     }
 
     
