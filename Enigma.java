@@ -19,23 +19,24 @@ public class Enigma{
     }
 
 
-    public String decrypt(String message){        
+    public String decrypt(String message){
         StringBuilder result = new StringBuilder();
         
         for (int i = 0; i < message.length(); i++) {
             char c = message.charAt(i);
             
-            // Reverse process: find character on outer rotor
-            int outerIndex = rotors[2].indexOf(c);
+            // Reverse process of encryption
+            // Find which index on outer rotor (rotors[2]) gives us this character
+            int outerIndexForResult = rotors[2].indexOf(c);
             
-            // Get aligned character on middle rotor (same index)
-            char middleChar = rotors[1].charAt(outerIndex);
+            // That index corresponds to a character on middle rotor (rotors[1])
+            char middleChar = rotors[1].charAt(outerIndexForResult);
             
-            // Find that character on outer rotor again
-            int secondOuterIndex = rotors[2].indexOf(middleChar);
+            // Find where that middle character appears on outer rotor (rotors[2])
+            int outerIndexForMiddle = rotors[2].indexOf(middleChar);
             
-            // Output character aligned with it on inner rotor
-            char decryptedChar = rotors[0].charAt(secondOuterIndex);
+            // That index corresponds to the original character on inner rotor (rotors[0])
+            char decryptedChar = rotors[0].charAt(outerIndexForMiddle);
             result.append(decryptedChar);
             
             // Rotate rotors after decryption
@@ -44,8 +45,6 @@ public class Enigma{
         
         return result.toString();
     }
-
-
     
     public String encrypt(String message){
         StringBuilder result = new StringBuilder();
@@ -53,16 +52,16 @@ public class Enigma{
         for (int i = 0; i < message.length(); i++) {
             char c = message.charAt(i);
             
-            // Find character on inner rotor
+            // Find character on inner rotor (rotors[0])
             int innerIndex = rotors[0].indexOf(c);
             
-            // Get aligned character on outer rotor (same index)
-            char outerChar = rotors[2].charAt(innerIndex);
+            // Note character aligned with it on outer rotor (rotors[2] at same index)
+            char alignedOnOuter = rotors[2].charAt(innerIndex);
             
-            // Find that character on middle rotor
-            int middleIndex = rotors[1].indexOf(outerChar);
+            // Find that character on middle rotor (rotors[1])
+            int middleIndex = rotors[1].indexOf(alignedOnOuter);
             
-            // Output character aligned with it on outer rotor
+            // Output character aligned with it on outer rotor (rotors[2] at same index)
             char encryptedChar = rotors[2].charAt(middleIndex);
             result.append(encryptedChar);
             
